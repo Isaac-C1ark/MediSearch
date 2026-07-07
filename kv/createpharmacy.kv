@@ -1,0 +1,148 @@
+# kv/createpharmacy.kv
+
+<CreatePharmacy>:
+    canvas.before:
+        Color:
+            rgba: 0.05, 0.44, 0.29, 1 # Deep Emerald Green base
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        BoxLayout:
+            id: create_pharmacy_card
+            orientation: "vertical"
+            size_hint: (0.85, None)
+            height: 480
+            pos_hint: {"center_x": 0.5, "center_y": 0.4}
+            opacity: 0
+            padding: 30
+            spacing: 15
+
+            canvas.before:
+                Color:
+                    rgba: 0.78, 0.88, 0.82, 0.98  # Clean bright white card base
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [16, 16, 16, 16]
+
+            Label:
+                text: "Enter Your Details"
+                font_size: 28
+                bold: True
+                color: 0.04, 0.18, 0.12, 1  # Dark Emerald text
+                size_hint_y: None
+                height: 40
+
+            Widget:
+                size_hint_y: None
+                height: 5
+
+            TextInput:
+                id: pharmacy_name_input
+                hint_text: "Pharmacy Name"
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 46
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 12, 12, 12]
+                foreground_color: 0.1, 0.1, 0.1, 1
+                canvas.after:
+                    Color:
+                        rgba: 0, 0, 0, 0
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 6)
+                        width: 1.1
+
+            TextInput:
+                id: pharmacy_address_input
+                hint_text: "Full Physical Address"
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 46
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 12, 12, 12]
+                foreground_color: 0.1, 0.1, 0.1, 1
+                canvas.after:
+                    Color:
+                        rgba: 0, 0, 0, 0  # 🖤 Clean Black Border
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 6)
+                        width: 1.1
+
+            TextInput:
+                id: pharmacy_phone_input
+                hint_text: "Phone Number"
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 46
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 12, 12, 12]
+                foreground_color: 0.1, 0.1, 0.1, 1
+                canvas.after:
+                    Color:
+                        rgba: 0, 0, 0, 0
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 6)
+                        width: 1.1
+
+            Label:
+                id: message_label
+                text: ""
+                font_size: 13
+                color: 0.8, 0.2, 0.2, 1
+                size_hint_y: None
+                height: 20
+
+            HoverCreateSaveButton:
+                text: "SAVE"
+                font_size: 14
+                bold: True
+                size_hint_y: None
+                height: 50
+                background_normal: ''
+                background_color: 0, 0, 0, 0
+                color: self.txt_color
+                on_press: root.save_pharmacy()
+                canvas.before:
+                    Color:
+                        rgba: self.bg_color
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [8, 8, 8, 8]
+                    Color:
+                        rgba: 0.83, 0.69, 0.22, 1
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                        width: 1.5
+
+            HoverCreateBackButton:
+                text: "BACK"
+                font_size: 14
+                bold: True
+                size_hint_y: None
+                height: 50
+                background_normal: ''
+                background_color: 0, 0, 0, 0
+                color: self.txt_color
+                on_press: root.go_back()
+                canvas.before:
+                    Color:
+                        rgba: self.bg_color
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [8, 8, 8, 8]
+                    Color:
+                        rgba: 0.83, 0.69, 0.22, 1
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                        width: 1.5

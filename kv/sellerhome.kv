@@ -1,0 +1,184 @@
+# kv/sellerhome.kv
+
+<SellerHome>:
+    canvas.before:
+        Color:
+            rgba: 0.05, 0.44, 0.29, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        id: main_container
+        orientation: "vertical"
+        padding: [30, 45, 30, 35]
+        spacing: 25
+        opacity: 0
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: 70
+            spacing: 2
+
+            Label:
+                text: "Welcome"
+                font_size: 30
+                bold: True
+                halign: "left"
+                valign: "middle"
+                size_hint_x: 1
+                text_size: self.size
+                color: 1, 1, 1, 1
+
+            Label:
+                text: "Manage your details here....."
+                font_size: 19
+                halign: "left"
+                valign: "middle"
+                size_hint_x: 1
+                text_size: self.size
+                color: 0.78, 0.88, 0.82, 0.8
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 12
+            size_hint_y: None
+            height: 90
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: [12, 12, 12, 12]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 0.06
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10, 10, 10, 10]
+                Label:
+                    text: "$14,230"
+                    font_size: 22
+                    bold: True
+                    color: 0.83, 0.69, 0.22, 1
+                Label:
+                    text: "Total Sales"
+                    font_size: 12
+                    color: 1, 1, 1, 0.6
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: [12, 12, 12, 12]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 0.06
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10, 10, 10, 10]
+                Label:
+                    text: "18"
+                    font_size: 22
+                    bold: True
+                    color: 1, 1, 1, 1
+                Label:
+                    text: "Active Orders"
+                    font_size: 12
+                    color: 1, 1, 1, 0.6
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: [12, 12, 12, 12]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 0.06
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10, 10, 10, 10]
+                Label:
+                    text: "3"
+                    font_size: 22
+                    bold: True
+                    color: 0.9, 0.3, 0.3, 1
+                Label:
+                    text: "Low Stock Items"
+                    font_size: 12
+                    color: 1, 1, 1, 0.6
+
+        Label:
+            text: "Quick Actions"
+            font_size: 16
+            bold: True
+            halign: "left"
+            valign: "bottom"
+            size_hint_y: None
+            height: 20
+            text_size: self.size
+            color: 1, 1, 1, 0.9
+
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 20
+            size_hint_y: None
+            height: 160
+
+            HoverCardButton:
+                text: "Manage\nPharmacy"
+                font_size: 18
+                bold: True
+                halign: "center"
+                valign: "middle"
+                text_size: self.size
+                background_normal: ''
+                background_color: 0.78, 0.88, 0.82, self.bg_alpha
+                color: 1, 1, 1, 1
+                on_press: root.go_manage_pharmacy()
+                canvas.before:
+                    Color:
+                        rgba: 0.83, 0.69, 0.22, self.border_alpha
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+                        width: 1.5
+
+            HoverCardButton:
+                text: "Manage\nInventory"
+                font_size: 18
+                bold: True
+                halign: "center"
+                valign: "middle"
+                text_size: self.size
+                background_normal: ''
+                background_color: 0.78, 0.88, 0.82, self.bg_alpha
+                color: 1, 1, 1, 1
+                on_press: root.go_inventory()
+                canvas.before:
+                    Color:
+                        rgba: 0.83, 0.69, 0.22, self.border_alpha
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+                        width: 1.5
+
+        Widget:
+        HoverLogoutButton:
+            text: "LOG OUT"
+            font_size: 15
+            bold: True
+            size_hint_y: None
+            height: 50
+            background_normal: ''
+            background_color: 0, 0, 0, 0
+            color: self.txt_color
+            on_press: root.logout()
+            canvas.before:
+                Color:
+                    rgba: self.bg_color
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [8, 8, 8, 8]
+                Color:
+                    rgba: 0.83, 0.69, 0.22, 1
+                Line:
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                    width: 1.2

@@ -1,0 +1,210 @@
+#:import Animation kivy.animation.Animation
+<HoverUpdateButton>:
+    size_hint_x: 0.22
+    background_normal: ''
+    background_color: 0, 0, 0, 0
+    font_size: 13
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.bg_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [6, 6, 6, 6]
+        Color:
+            rgba: 0.85, 0.95, 0.88, 0.82
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 6)
+            width: 1
+
+<AdjustmentPopup@ModalView>:
+    size_hint: None, None
+    size: 360, 240
+    auto_dismiss: True
+    background_normal: ''
+    background_color: 0, 0, 0, 0
+    medicine_name: ""
+    current_stock: 0
+    caller_screen: None
+    card_y_hint: 0.3
+    card_opacity: 0
+    on_open:
+        Animation(card_y_hint=0.5, card_opacity=1, duration=0.25, t='out_quad').start(self)
+        qty_input.focus = True
+
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            pos_hint: {"center_x": 0.5, "center_y": root.card_y_hint}
+            opacity: root.card_opacity
+            padding: [22, 22, 22, 22]
+            spacing: 12
+
+            canvas.before:
+                Color:
+                    rgba: 0.04, 0.25, 0.17, 0.98  # Clean Deep Jade Glass Base
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [14, 14, 14, 14]
+                Color:
+                    rgba: 0.83, 0.69, 0.22, 0.5  # Subtle Metallic Gold Trim Border
+                Line:
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 14)
+                    width: 1.2
+
+            TextInput:
+                id: qty_input
+                hint_text: f"Add Quantity"
+                multiline: False
+                input_filter: 'int'
+                size_hint_y: None
+                height: 42
+                padding: [12, 10, 12, 10]
+                background_normal: ''
+                background_color: 0.95, 0.96, 0.95, 1
+                foreground_color: 0.1, 0.1, 0.1, 1
+
+            Label:
+                id: error_lbl
+                text: ""
+                color: 0.95, 0.35, 0.35, 1
+                size_hint_y: None
+                height: 18
+                font_size: 12
+
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 12
+                size_hint_y: None
+                height: 42
+
+                Button:
+                    text: "Cancel"
+                    background_normal: ''
+                    background_color: 0.88, 0.35, 0.41, 0.82
+                    color: 1, 1, 1, 0.8
+                    on_press: root.dismiss()
+
+                Button:
+                    text: "Deduct"
+                    background_normal: ''
+                    background_color: 0.83, 0.69, 0.22, 1
+                    color: 1, 1, 1, 1
+                    bold: True
+                    on_press: root.caller_screen.execute_stock_reduction(root.medicine_name, root.current_stock, qty_input.text, error_lbl, root)
+<ManageInventory>:
+    canvas.before:
+        Color:
+            rgba: 0.05, 0.44, 0.29, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        BoxLayout:
+            id: manage_inventory_card
+            orientation: "vertical"
+            size_hint: (0.85, 0.7)
+            pos_hint: {"center_x": 0.5, "center_y": 0.55}
+            opacity: 0
+            padding: 30
+            spacing: 15
+
+            canvas.before:
+                Color:
+                    rgba: 0.78, 0.88, 0.82, 0.98
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [16, 16, 16, 16]
+
+            Label:
+                text: "Manage Inventory"
+                font_size: 24
+                bold: True
+                color: 0.04, 0.18, 0.12, 1
+                size_hint_y: None
+                height: 30
+                halign: "center"
+                text_size: self.size
+
+            TextInput:
+                id: medicine_name_input
+                hint_text: "Search medicines..."
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 46
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 12, 12, 12]
+                foreground_color: 0.1, 0.1, 0.1, 1
+
+            ScrollView:
+                size_hint: (1, 1)
+                bar_width: 5
+                scroll_type: ['content', 'bars']
+
+                BoxLayout:
+                    id: list_container
+                    orientation: "vertical"
+                    spacing: 8
+                    size_hint_y: None
+                    height: self.minimum_height
+
+    FloatLayout:
+        BoxLayout:
+            id: action_card
+            orientation: "horizontal"
+            size_hint: (0.85, None)
+            height: 50
+            pos_hint: {"center_x": 0.5, "center_y": 0.12}
+            opacity: 0
+            spacing: 15
+
+            HoverManageBackButton:
+                text: "BACK"
+                font_size: 15
+                bold: True
+                size_hint_x: 0.3
+                background_normal: ''
+                background_color: 0, 0, 0, 0
+                color: self.txt_color
+                on_press: root.go_back()
+                canvas.before:
+                    Color:
+                        rgba: self.bg_color
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [8, 8, 8, 8]
+                    Color:
+                        rgba: 0.83, 0.69, 0.22, 1
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                        width: 1.5
+
+            HoverAddMedicineButton:
+                text: "ADD"
+                font_size: 15
+                bold: True
+                size_hint_x: 0.7
+                background_normal: ''
+                background_color: 0, 0, 0, 0
+                color: self.txt_color
+                on_press: root.go_add_medicine()
+                canvas.before:
+                    Color:
+                        rgba: self.bg_color
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [8, 8, 8, 8]
+                    Color:
+                        rgba: 0.83, 0.69, 0.22, 1
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                        width: 1.5

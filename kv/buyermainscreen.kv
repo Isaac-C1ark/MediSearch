@@ -1,0 +1,257 @@
+#:import MapView kivy_garden.mapview.MapView
+
+<BuyerMainScreen>:
+    FloatLayout:
+        id: main_layout
+        size_hint: 1, 1
+
+        MapView:
+            id: map_view_widget
+            lat: 26.1445
+            lon: 91.7362
+            zoom: 15
+            size_hint: 1, 1
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        FloatLayout:
+            size_hint: 0.92, None
+            height: 54
+            pos_hint: {"center_x": 0.5, "top": 0.96}
+
+            BoxLayout:
+                id: search_bar_container
+                orientation: "horizontal"
+                size_hint: (0.85, 1)
+                pos_hint: {"x": 0, "top": 1}
+                padding: [14, 0, 6, 0]
+                spacing: 8
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [27, 27, 27, 27]
+                    Color:
+                        rgba: 0.05, 0.44, 0.29, 0.15
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 27)
+                        width: 1.5
+
+                TextInput:
+                    id: search_input
+                    hint_text: "Search medicines..."
+                    bold: False
+                    multiline: False
+                    size_hint_x: 0.75
+                    size_hint_y: None
+                    height: 40
+                    pos_hint: {"center_y": 0.5}
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    padding: [4, 10, 4, 10]
+                    foreground_color: 0.1, 0.1, 0.1, 1
+                    hint_text_color: 0.6, 0.6, 0.6, 1
+                    on_text: root.on_text_change(self, self.text)
+
+                HoverSearchButton:
+                    text: "Search"
+                    font_size: 14
+                    bold: True
+                    size_hint_x: 0.25
+                    size_hint_y: None
+                    height: 42
+                    pos_hint: {"center_y": 0.5}
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: self.txt_color
+                    on_press: root.on_search_pressed(self)
+                    canvas.before:
+                        Color:
+                            rgba: self.bg_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [21, 21, 21, 21]
+
+            HoverLogoutButton:
+                text: "Log Out"
+                font_size: 14
+                bold: True
+                size_hint: (None, 1)
+                width: 54
+                pos_hint: {"right": 1, "top": 1}
+                background_normal: ''
+                background_color: 0, 0, 0, 0
+                color: self.txt_color
+                on_press: root.go_back()
+                canvas.before:
+                    Color:
+                        rgba: self.bg_color
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [17, 17 ,17, 17]
+                    Color:
+                        rgba: 0.8, 0.2, 0.2, 0.15
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 27)
+                        width: 1.2
+
+            BoxLayout:
+                id: suggestion_box
+                orientation: 'vertical'
+                size_hint: (0.85, None)
+                height: 0
+                x: search_bar_container.x
+                y: search_bar_container.y - self.height + 6
+                spacing: 2
+                padding: [6, 8, 6, 8]
+                opacity: 0
+                canvas.before:
+                    Color:
+                        rgba: (1, 1, 1, 0.98) if self.height > 16 else (0, 0, 0, 0)
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [0, 0, 16, 16]
+                    Color:
+                        rgba: (0.05, 0.44, 0.29, 0.15) if self.height > 16 else (0, 0, 0, 0)
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 16)
+                        width: 1.5
+
+        BoxLayout:
+            id: info_panel
+            orientation: "horizontal"
+            size_hint: 0.94, None
+            height: 0
+            opacity: 0
+            pos_hint: {"center_x": 0.5, "y": 0.02}
+            padding: [18, 12, 18, 16]
+            spacing: 14
+            canvas.before:
+                Color:
+                    rgba: 0.03, 0.22, 0.15, 0.96
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [18, 18, 18, 18]
+                Color:
+                    rgba: 0.58, 0.77, 0.45, 0.25
+                Line:
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 18)
+                    width: 1.5
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_x: 0.65
+                spacing: 5
+
+                Label:
+                    id: panel_name
+                    text: "Pharmacy Name"
+                    bold: True
+                    font_size: 25
+                    color: 1, 1, 1, 1
+                    halign: "left"
+                    valign: "top"
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 24
+                Label:
+                    id: panel_address
+                    text: "Address details go here..."
+                    font_size: 17
+                    color: 0.8, 0.9, 0.85, 1
+                    halign: "left"
+                    valign: "top"
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 32
+                Label:
+                    id: panel_medicine
+                    text: "Medicine: Paracetamol"
+                    font_size: 14
+                    color: 0.58, 0.77, 0.45, 1
+                    halign: "left"
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 18
+                Label:
+                    id: panel_price_stock
+                    text: "$12.50 | 14 Units Left"
+                    font_size: 13
+                    color: 1, 1, 1, 0.9
+                    halign: "left"
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 18
+                Label:
+                    id: panel_distance
+                    text: "0.8 km away • 4 mins ETA"
+                    font_size: 12
+                    color: 1, 1, 1, 1
+                    bold: True
+                    halign: "left"
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 16
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_x: 0.35
+                spacing: 8
+
+                HoverRouteButton:
+                    text: "ROUTE"
+                    bold: True
+                    font_size: 15
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: self.txt_color
+                    canvas.before:
+                        Color:
+                            rgba: self.bg_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [10, 10, 10, 10]
+                    on_press: root.route_from_panel(self)
+
+                HoverCallButton:
+                    text: "CALL"
+                    bold: True
+                    font_size: 15
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: self.txt_color
+                    canvas.before:
+                        Color:
+                            rgba: self.bg_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [10, 10, 10, 10]
+                        Color:
+                            rgba: 1, 1, 1, 0.3
+                        Line:
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+                            width: 1
+                    on_press: root.call_pharmacy(self)
+
+                HoverDismissButton:
+                    text: "DISMISS"
+                    font_size: 15
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: self.txt_color
+                    canvas.before:
+                        Color:
+                            rgba: self.bg_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [10, 10, 10, 10]
+                    on_press: root.hide_panel(self)
+

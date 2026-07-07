@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.buildozer/
+.kivy/
+.idea/
+*.db
+*.sqlite3

@@ -1,0 +1,145 @@
+# kv/updatepharmacy.kv
+
+<UpdatePharmacyScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.05, 0.44, 0.29, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        pos: root.pos
+        size: root.size
+        BoxLayout:
+            id: details_card
+            orientation: "vertical"
+            size_hint: (0.85, None)
+            height: 440
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            opacity: 1
+            padding: [22, 24, 22, 22]
+            spacing: 18
+
+            canvas.before:
+                Color:
+                    rgba: 0.78, 0.88, 0.82, 0.98
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [16, 16, 16, 16]
+
+            Widget:
+                size_hint_y: None
+                height: 15
+
+            Label:
+                text: "Update Details"
+                font_size: 25
+                bold: True
+                color: 0.04, 0.18, 0.12, 1
+                halign: "center"
+                valign: "middle"
+                size_hint_y: None
+                height: 35
+                text_size: self.width, self.height
+
+            ScrollView:
+                do_scroll_x: False
+                size_hint_y: None
+                height: 165
+                BoxLayout:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 12
+                    padding: [2, 4, 2, 4]
+
+                    TextInput:
+                        id: name_input
+                        hint_text: "Update Name"
+                        multiline: False
+                        write_tab: False
+                        size_hint_y: None
+                        height: 44
+                        background_normal: ''
+                        background_color: 0.94, 0.95, 0.94, 1
+                        padding: [12, 12, 12, 12]
+                        foreground_color: 0.1, 0.1, 0.1, 1
+
+                    TextInput:
+                        id: phone_input
+                        hint_text: "Update Number"
+                        multiline: False
+                        write_tab: False
+                        size_hint_y: None
+                        height: 44
+                        background_normal: ''
+                        background_color: 0.94, 0.95, 0.94, 1
+                        padding: [12, 12, 12, 12]
+                        foreground_color: 0.1, 0.1, 0.1, 1
+
+                    TextInput:
+                        id: address_input
+                        hint_text: "Update Address"
+                        multiline: False
+                        write_tab: False
+                        size_hint_y: None
+                        height: 44
+                        background_normal: ''
+                        background_color: 0.94, 0.95, 0.94, 1
+                        padding: [12, 12, 12, 12]
+                        foreground_color: 0.1, 0.1, 0.1, 1
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+                padding: [0, 4, 0, 0]
+
+                HoverUpdateUpdateButton:
+                    text: "UPDATE"
+                    font_size: 14
+                    bold: True
+                    size_hint: (1, None)
+                    height: 48
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: [1, 1, 1, 1]
+                    on_press: root.save_pharmacy_data()
+                    canvas.before:
+                        Color:
+                            rgba: self.bg_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [8, 8, 8, 8]
+                        Color:
+                            rgba: 0.83, 0.69, 0.22, 1
+                        Line:
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                            width: 1.5
+
+                HoverUpdateBackButton:
+                    text: "BACK"
+                    font_size: 14
+                    bold: True
+                    size_hint: (1, None)
+                    height: 48
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: [1,1,1,1]
+                    on_press: root.go_back()
+                    canvas.before:
+                        Color:
+                            rgba: self.bg_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [8, 8, 8, 8]
+                        Color:
+                            rgba: 0.83, 0.69, 0.22, 1
+                        Line:
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                            width: 1.5

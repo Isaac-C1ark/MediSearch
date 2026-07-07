@@ -1,0 +1,124 @@
+<CreateProfile>:
+    canvas.before:
+        Color:
+            rgba: 0.05, 0.44, 0.29, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        BoxLayout:
+            id: create_profile_card
+            orientation: "vertical"
+            size_hint: (0.85, None)
+            height: 500
+            pos_hint: {"center_x": 0.5, "center_y": 0.4}
+            opacity: 0
+            padding: [24, 18, 24, 20]
+            spacing: 12
+
+            canvas.before:
+                Color:
+                    rgba: 0.78, 0.88, 0.82, 0.98
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [16, 16, 16, 16]
+
+            Label:
+                text: "Create Profile"
+                font_size: 28
+                bold: True
+                color: 0.04, 0.18, 0.12, 1
+                size_hint_y: None
+                height: 35
+
+            TextInput:
+                id: first_name
+                hint_text: "First Name"
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 42
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 11, 12, 11]
+                foreground_color: 0.1, 0.1, 0.1, 1
+
+            TextInput:
+                id: last_name
+                hint_text: "Last Name"
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 42
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 11, 12, 11]
+                foreground_color: 0.1, 0.1, 0.1, 1
+
+            TextInput:
+                id: phone_number
+                hint_text: "Phone Number"
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 42
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 11, 12, 11]
+                foreground_color: 0.1, 0.1, 0.1, 1
+
+            TextInput:
+                id: address_input
+                hint_text: "Address"
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 42
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 11, 12, 11]
+                foreground_color: 0.1, 0.1, 0.1, 1
+
+            TextInput:
+                id: pin_input
+                hint_text: "PIN code"
+                multiline: False
+                write_tab: False
+                size_hint_y: None
+                height: 42
+                background_normal: ''
+                background_color: 0.94, 0.95, 0.94, 1
+                padding: [12, 11, 12, 11]
+
+            Label:
+                id: message_label
+                text: ""
+                font_size: 13
+                color: 0.8, 0.2, 0.2, 1
+                size_hint_y: None
+                height: 18
+
+            HoverCreateSaveButton:
+                text: "SAVE"
+                font_size: 14
+                bold: True
+                size_hint_y: None
+                height: 46
+                background_normal: ''
+                background_color: 0, 0, 0, 0
+                color: self.txt_color
+                on_press: root.save_profile()
+                canvas.before:
+                    Color:
+                        rgba: self.bg_color
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [8, 8, 8, 8]
+                    Color:
+                        rgba: 0.83, 0.69, 0.22, 1
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                        width: 1.5

@@ -1,0 +1,178 @@
+# kv/managepharmaciesscreen.kv
+
+<HoverPharmacyButton>:
+    markup: True
+    size_hint_y: None
+    height: 85
+    background_normal: ''
+    background_color: 0, 0, 0, 0
+    color: 1, 1, 1, 1
+    halign: "left"
+    valign: "middle"
+    padding: [18, 10]
+    text_size: self.width - 30, None
+
+    canvas.before:
+        Color:
+            rgba: self.bg_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10, 10, 10, 10]
+        Color:
+            rgba: self.line_color
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+            width: 1
+
+<ManagePharmaciesScreen>:
+    FloatLayout:
+        pos: root.pos
+        size: root.size
+
+        # Main Scrollable Content Area Panel
+        BoxLayout:
+            orientation: "vertical"
+            padding: [25, 25, 25, 25]
+            spacing: 20
+            pos_hint: {"x": 0, "y": 0}
+            size_hint: (1, 1)
+            canvas.before:
+                Color:
+                    rgba: 0.05, 0.44, 0.29, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint_y: None
+                height: 50
+                spacing: 15
+                Label:
+                    text: "Manage Branches"
+                    font_size: 30
+                    bold: True
+                    color: 1, 1, 1, 1
+                    halign: "left"
+                    valign: "middle"
+                    text_size: self.size
+
+            ScrollView:
+                size_hint_y: 0.7
+                do_scroll_x: False
+                BoxLayout:
+                    id: pharmacy_list_container
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 15
+                    padding: [2, 10, 2, 10]
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: 115
+                spacing: 15
+
+                HoverManageRegisterButton:
+                    text: "REGISTER NEW BRANCH"
+                    font_size: 15
+                    bold: True
+                    size_hint_y: None
+                    height: 55
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: self.txt_color
+                    on_press: root.add_new_location()
+                    canvas.before:
+                        Color:
+                            rgba: self.bg_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [8, 8, 8, 8]
+                        Color:
+                            rgba: 0.83, 0.69, 0.22, 1
+                        Line:
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                            width: 1.5
+
+                HoverManageBackButton:
+                    text: "BACK"
+                    font_size: 16
+                    bold: True
+                    size_hint_y: None
+                    height: 55
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: self.txt_color
+                    on_press: root.go_back()
+                    canvas.before:
+                        Color:
+                            rgba: self.bg_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [8, 8, 8, 8]
+                        Color:
+                            rgba: 0.83, 0.69, 0.22, 1
+                        Line:
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+                            width: 1.5
+
+        BoxLayout:
+            id: action_drawer
+            orientation: 'vertical'
+            size_hint: (0.9, None)
+            height: 250
+            pos_hint: {"center_x": 0.5, "center_y": -0.5}
+            padding: 20
+            spacing: 15
+            canvas.before:
+                Color:
+                    rgba: 0.03, 0.22, 0.15, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20, 20, 20, 20]
+
+            Label:
+                text: "Branch Action"
+                font_size: 18
+                bold: True
+                color: 1,1,1,1
+                size_hint_y: None
+                height: 30
+
+            Button:
+                text: "MANAGE INVENTORY"
+                size_hint_y: None
+                height: 50
+                background_normal: ''
+                background_color: (0.58, 0.77, 0.45, 1)
+                color: 1, 1, 1, 1
+                font_size: 14
+                bold: True
+                on_release: root.trigger_inventory()
+
+            Button:
+                text: "UPDATE BRANCH DETAILS"
+                size_hint_y: None
+                height: 50
+                background_normal: ''
+                background_color: (0.58, 0.77, 0.45, 1)
+                color: 1,1,1,1
+                font_size: 14
+                bold: True
+                on_release: root.trigger_details()
+
+            Button:
+                text: "Cancel"
+                size_hint_y: None
+                height: 40
+                background_normal: ''
+                background_color: 0.88, 0.35, 0.41, 1
+                color: 1, 1, 1, 1
+                font_size: 18
+                on_release: root.dismiss_action_drawer()
