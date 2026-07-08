@@ -1,5 +1,5 @@
 import requests
-from config import ORS_API_KEY
+from Utils.config import ORS_API_KEY
 
 
 def geocode_address(address_string):
